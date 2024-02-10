@@ -42,7 +42,7 @@ export interface IChartProps {
     toggledOffset?: number;
     selectedOffset?: number;
     strokeColor?: 'item-color' | string;
-    
+    forceChartWidth?: number,
     legend?: boolean;
     legendSide?: 'top' | 'bottom' | 'left' | 'right';
     labelRenderer?: LabelRenderer;

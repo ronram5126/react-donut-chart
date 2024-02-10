@@ -96,7 +96,7 @@ const DonutChart: React.FC<IChartProps> = ({
   toggledOffset = 0.04,
   selectedOffset = 0.03,
   strokeColor = 'item-color',
-
+  forceChartWidth,
   legend = true,
   legendSide = 'right',
   horizontalAlign = 'left',
@@ -136,7 +136,7 @@ const DonutChart: React.FC<IChartProps> = ({
             opacity: isSelected && !toggleSelect ? 0.5 : 1,
             stroke: isEmpty ? emptyColor 
               : strokeColor === 'item-color' ? colorFunction(colors, index) 
-                : strokeColor,
+              : strokeColor,
             clickHandlers: interactive
               ? {
                   onClick: () => {
@@ -180,8 +180,8 @@ const DonutChart: React.FC<IChartProps> = ({
         justifyContent:"center",
         alignItems: "center",
         position: "relative",
-        width: (maxLabelLength + "em"),
-        height: (maxLabelLength + "em"),
+        width: ((forceChartWidth || maxLabelLength) + "em"),
+        height: ((forceChartWidth || maxLabelLength) + "em"),
         textAlign: "center"
       }}>
         <svg
