@@ -102,6 +102,7 @@ const DonutChart: React.FC<IChartProps> = ({
   horizontalAlign = 'left',
   verticalAlign = 'middle',
   wrapToTop = false,
+  selectionOpacity = 0.5,
   labelRenderer
 }) => {
   const [selected, setSelected] = useState(interactive ? data[0] : null);
@@ -133,7 +134,7 @@ const DonutChart: React.FC<IChartProps> = ({
               isSelected ? 'selected' : ''
             } ${isToggled ? 'toggled' : ''}`.trim(),
             fill: isEmpty ? emptyColor : colorFunction(colors, index),
-            opacity: isSelected && !toggleSelect ? 0.5 : 1,
+            opacity: isSelected && !toggleSelect ? selectionOpacity : 1,
             stroke: isEmpty ? emptyColor 
               : strokeColor === 'item-color' ? colorFunction(colors, index) 
               : strokeColor,
