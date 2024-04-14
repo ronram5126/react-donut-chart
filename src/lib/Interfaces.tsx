@@ -49,7 +49,7 @@ export interface IChartProps {
     verticalAlign?: 'top' | 'middle' | 'bottom';
     horizontalAlign?: 'left' | 'center' | 'right';
     wrapToTop?: boolean;
-    selectionOpacity: number;
+    selectionOpacity?: number;
 };
 
 export interface IArcPathProps extends Pick<
