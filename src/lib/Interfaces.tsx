@@ -27,14 +27,14 @@ export interface IChartProps {
     emptyColor?: string;
     className?: string;
     colorFunction?: (colors: Colors, index: number) => string;
-    formatValues?: (value: number, total: number) => string;
+    formatValues?: (value: number, total: number, index: number, data: Item[]) => string;
     
     interactive?: boolean;
     clickToggle?: boolean;
     onClick?: (item: Item, toggled: boolean) => void;
     onMouseEnter?: (item: Item) => void;
     onMouseLeave?: (item: Item) => void;
-    
+    roundOffPercent?: boolean;
     chartSize?: number;
     innerRadius?: number;
     outerRadius?: number;

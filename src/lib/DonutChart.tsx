@@ -105,12 +105,14 @@ const DonutChart: React.FC<IChartProps> = ({
   selectionOpacity = 0.5,
   labelRenderer
 }) => {
-  const [selected, setSelected] = useState(interactive ? data[0] : null);
+  const [selected, setSelected] = useState<(Item & { index: number }) | null >(interactive ? 
+    Object.assign({ index: 0}, data[0]) : null
+  );
   const [toggleSelect, setToggleSelect] = useState(false);
 
   useEffect(() => {
     if (interactive) {
-      setSelected(data[0]);
+      setSelected(Object.assign({ index: 0 }, data[0]));
       setToggleSelect(false);
     }
   }, [interactive, data]);
@@ -143,14 +145,14 @@ const DonutChart: React.FC<IChartProps> = ({
                   onClick: () => {
                     if (selected?.label === label) {
                       const toggle = clickToggle ? !toggleSelect : false;
-                      setSelected(item);
+                      setSelected(Object.assign({ index }, item));
                       setToggleSelect(toggle);
                       onClick(item, toggle);
                     }
                   },
                   onMouseEnter: () => {
                     if (!toggleSelect) {
-                      setSelected(item);
+                      setSelected(Object.assign({ index }, item));
                       onMouseEnter(item);
                     }
                   },
@@ -233,7 +235,7 @@ const DonutChart: React.FC<IChartProps> = ({
                   {selected.label || " "}
                 </div>
                 <div className={`${className}-innertext-value`}>
-                  {formatValues(selected.value, total)}
+                  {formatValues(selected.value, total, selected.index, data)}
                 </div>
               </div>
             )}
