@@ -142,19 +142,29 @@ const DonutChart: React.FC<IChartProps> = ({
               : strokeColor,
             clickHandlers: interactive
               ? {
-                onTouchStart: () => {
-                  if (!toggleSelect) {
-                    setSelected(Object.assign({ index }, item));
+                onTouchStart: (e: any) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  setSelected(Object.assign({ index }, item));
                     onMouseEnter(item);
+                },
+                onTouchMove: (e: any) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  const touch = e.touches[0];
+                  const element = document.elementFromPoint(touch.clientX, touch.clientY);
+                  if (element) {
+                    const touchStartEvent = new Event('touchstart', {
+                      bubbles: true,
+                      cancelable: true,
+                    });
+                    element.dispatchEvent(touchStartEvent);
                   }
                 },
-                onTouchEnd: () => {
-                  if (selected?.label === label) {
-                    const toggle = clickToggle ? !toggleSelect : false;
-                    setSelected(Object.assign({ index }, item));
-                    setToggleSelect(toggle);
-                    onClick(item, toggle);
-                  }
+                onTouchEnd: (e: any) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  onClick(item, false);
                 },
                   onClick: () => {
                     if (selected?.label === label) {
@@ -214,7 +224,8 @@ const DonutChart: React.FC<IChartProps> = ({
               position: "absolute",
               width: "100%",
               height: "100%",
-              objectFit: "contain"
+              objectFit: "contain",
+              touchAction: 'none' 
             }}
             viewBox={`0 0 ${chartSize} ${chartSize}`}
           >
