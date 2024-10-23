@@ -142,6 +142,20 @@ const DonutChart: React.FC<IChartProps> = ({
               : strokeColor,
             clickHandlers: interactive
               ? {
+                onTouchStart: () => {
+                  if (!toggleSelect) {
+                    setSelected(Object.assign({ index }, item));
+                    onMouseEnter(item);
+                  }
+                },
+                onTouchEnd: () => {
+                  if (selected?.label === label) {
+                    const toggle = clickToggle ? !toggleSelect : false;
+                    setSelected(Object.assign({ index }, item));
+                    setToggleSelect(toggle);
+                    onClick(item, toggle);
+                  }
+                },
                   onClick: () => {
                     if (selected?.label === label) {
                       const toggle = clickToggle ? !toggleSelect : false;
