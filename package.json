@@ -18,7 +18,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "start": "react-scripts start",
-    "types": "tsc --declaration --declarationMap --emitDeclarationOnly --esModuleInterop --jsx react-jsx --outDir dist/ src/lib/*",
+    "types": "tsc --project tsconfig.build.json",
     "build:lib": "rimraf dist && babel src/lib --out-dir dist --extensions '.tsx,.ts' && npm run types",
     "build:site": "rimraf build && react-scripts build",
     "prepare": "npm run build:lib"
